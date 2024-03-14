@@ -6,11 +6,12 @@ import { FormulaireComponent } from './formulaire/formulaire.component';
 import { RecapitulatifComponent } from './recapitulatif/recapitulatif.component';
 import { CatalogueComponent } from './catalogue/catalogue.component';
 import { MoteurRechercheComponent } from './moteur-recherche/moteur-recherche.component';
+import { CartesModule } from './cartes/cartes.module';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TetiereComponent, FooterComponent, FormulaireComponent, RecapitulatifComponent, CatalogueComponent, MoteurRechercheComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TetiereComponent, FooterComponent, FormulaireComponent, RecapitulatifComponent, CatalogueComponent, MoteurRechercheComponent, CartesModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,0 +1,39 @@
+<div class="bg-white rounded-md max-w-lg mx-auto mt-16 mb-16">
+    <form  class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" [formGroup]="cardForm">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+          Nom du titulaire
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Nom" formControlName="nomTitulaire">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+          Numéro de carte
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="num" type="text" placeholder="Numero" formControlName="numero" maxLength="16">
+        <div *ngIf="cardForm.get('numero')?.invalid && (cardForm.get('numero')?.dirty || cardForm.get('numero')?.touched)" class="error-message">
+            Le numéro de carte est invalide.
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+          CCV
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ccv" type="text" placeholder="CCV" formControlName="ccv" maxLength="3">
+        <div *ngIf="cardForm.get('ccv')?.invalid && (cardForm.get('ccv')?.dirty || cardForm.get('ccv')?.touched)" class="error-message text-red">
+            Le CCV est invalide.
+          </div>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="expirationDate">
+          Date d'expiration
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="expirationDate" type="date" formControlName="dateExpiration">
+      </div>
+      <div class="flex items-center justify-between">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" [disabled]="cardForm.invalid" (click)="submitForm()" routerLink="/cartes" routerLinkActive="active" [style.opacity]="cardForm.invalid ? '0.5' : '1'">
+          Enregister
+        </button>
+      </div>
+    </form>
+  </div>
