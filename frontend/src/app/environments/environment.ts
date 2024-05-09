@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
-    backendClient : '/assets/mock/produits.json',
+    backendCatalogue : 'http://localhost:3000/api/catalogue',
+    backendLoginClient: 'http://localhost:3000/api/utilisateur/login',
     backendCarte : '/assets/mock/cartes.json'
   };
