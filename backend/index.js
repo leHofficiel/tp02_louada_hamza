@@ -1,18 +1,34 @@
-const catalogue = require('./catalogue.json');
+const express = require("express");
+const cors = require("cors");
 
-const app = require('express')();
-const port = 3000;
+const app  = express ();
 
-var cors = require('cors');
+const corsOptions = {
+  origin: "*",
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  headers: 'Content-Type, Authorization',
+  exposedHeaders:'Authorization'
+};
 
-// use it before all route definitions
-app.use(cors({origin: 'http://localhost:4200'}));
+app.use(cors(corsOptions));
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-    });
+// parse requests of content-type - application/json
+app.use(express.json());
 
-app.get('/api/catalogue', (req, res) => {
-    res.json(catalogue
-    );
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+
+require("./routes/catalogue.routes")(app);
+require("./routes/utilisateur.routes")(app);
+
+
+
+// set port, listen for requests
+const PORT =  3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
+
+
+
