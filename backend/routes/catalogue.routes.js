@@ -9,5 +9,5 @@ module.exports = app => {
    
     router.get("/", checkJwt,catalogue.get);
   
-    app.use('/api/catalogue', router);
+    app.use('/catalogue', router);
   };

@@ -9,5 +9,5 @@ module.exports = app => {
     // login utilisateur
     router.post("/login", utilisateur.login);
   
-    app.use('/api/utilisateur', router);
+    app.use('/utilisateur', router);
   };
