@@ -18,8 +18,22 @@ exports.get = (req, res) => {
 			{"title":"Fullmetal Alchemist: Brotherhood", "duree": "25min", "image":"/assets/products/fmaBrotherhood.jpe", "genre":["Aventure","Fantaisie","Surnaturel"]}
 		];
 	
-	res.setHeader('Content-Type', 'application/json');
-      
-    res.send(catalogue);
+		const genre = req.query.genre;
+		const query = req.query.query ? req.query.query.toLowerCase() : null;
+	  
+		let filteredCatalogue = catalogue;
+	  
+		// Filtrer par genre si un genre est sélectionné
+		if (genre && genre !== 'Tous les genres') {
+		  filteredCatalogue = filteredCatalogue.filter(produit => produit.genre.includes(genre));
+		}
+	  
+		// Filtrer par nom si une recherche est effectuée
+		if (query) {
+		  filteredCatalogue = filteredCatalogue.filter(produit => produit.title.toLowerCase().includes(query));
+		}
+	  
+		res.setHeader('Content-Type', 'application/json');
+		res.send(filteredCatalogue);
    };    
 

@@ -18,13 +18,14 @@ exports.login = (req, res) => {
   let pattern = /^[A-Za-z0-9]{1,20}$/;
   if (pattern.test(utilisateur.login) && pattern.test(utilisateur.password)) {
 
+    if (utilisateur.login === "hamza" && utilisateur.password === "test") {
         const uuid = uuidv4 ();
         const utilisateur = {
-          nom: "martin",
-          prenom: "jean",
-          login: "marsstin",
-          email : "martin.jean@gmail.com",
-          password : "toto",
+          nom: "louada",
+          prenom: "hamza",
+          login: "hamza",
+          email : "hamza@gmail.com",
+          password : "test",
           id : uuid
         };
 
@@ -42,6 +43,12 @@ exports.login = (req, res) => {
 
       
         res.send(utilisateur);
+      }
+    }
+    else {
+      res.status(404).send({
+        message: "Utilisateur inexistant"
+      });
     };    
 };
 

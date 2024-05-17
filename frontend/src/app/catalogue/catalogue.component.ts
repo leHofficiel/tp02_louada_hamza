@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { Produit } from '../models/produit';
 import { ProduitsServiceService } from '../produits-service.service';
 import { CommonModule } from '@angular/common';
 import { MoteurRechercheComponent } from '../moteur-recherche/moteur-recherche.component';
+import { HttpParams } from '@angular/common/http';
+import { switchMap, startWith } from 'rxjs/operators';  // Import correct des opérateurs
+
 
 @Component({
   selector: 'app-catalogue',
@@ -17,42 +20,41 @@ export class CatalogueComponent implements OnInit {
   selectedGenre!: string; // Stocker le genre sélectionné
   searchQuery!: string; // Stocker la recherche de l'utilisateur
 
-  constructor(private produitService : ProduitsServiceService) {}
+  private filterSubject = new Subject<void>();
 
-  ngOnInit() {  
-    this.produits = this.produitService.getCatalogue();
+  constructor(private produitService: ProduitsServiceService) {}
+
+  ngOnInit() {
+    this.produits = this.filterSubject.pipe(
+      startWith(0),
+      switchMap(() => {
+        let params = new HttpParams();
+        if (this.selectedGenre && this.selectedGenre !== 'Tous les genres') {
+          params = params.set('genre', this.selectedGenre);
+        }
+        if (this.searchQuery) {
+          params = params.set('query', this.searchQuery.toLowerCase());
+        }
+        return this.produitService.getCatalogue(params);
+      })
+    );
   }
 
-  //  Fonction pour filtrer les produits par genre
+  // Fonction pour récupérer les produits avec les filtres appliqués
+  fetchProduits() {
+    this.filterSubject.next();
+  }
+
+  // Fonction pour filtrer les produits par genre
   filterByGenre(genre: string) {
     this.selectedGenre = genre;
-    this.applyFilters();
+    this.fetchProduits();
   }
 
   // Fonction pour filtrer les produits par nom
   searchByName(query: string) {
     this.searchQuery = query;
-    this.applyFilters();
-  }
-
-  // Fonction pour appliquer les filtres sur la liste de produits
-  applyFilters() {
-    console.log(this.selectedGenre);
-    this.produits = this.produits.pipe(
-      map(produits => {
-        // Filtrer par genre si un genre est sélectionné
-        if (this.selectedGenre && this.selectedGenre !== 'Tous les genres') {
-          produits = produits.filter(produit => {
-            return produit.genre?.includes(this.selectedGenre);
-          });
-        }
-        // Filtrer par nom si une recherche est effectuée
-        if (this.searchQuery) {
-          produits = produits.filter(produit => {return produit.title.toLowerCase().includes(this.searchQuery);});
-        }
-        return produits;
-      })
-    );
+    this.fetchProduits();
   }
 }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './environments/environment';
 import { Produit } from './models/produit';
@@ -13,8 +13,8 @@ export class ProduitsServiceService {
 
   constructor(private http:HttpClient) {}
   
-  public getCatalogue() : Observable<Produit[]> {
-    return this.http.get<Produit[]>(environment.backendCatalogue);
+  public getCatalogue(params: HttpParams) : Observable<Produit[]> {
+    return this.http.get<Produit[]>(environment.backendCatalogue, {params});
   }
 
   public loginClient(email: string, password: string): Observable<Client> {
