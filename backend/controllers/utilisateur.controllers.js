@@ -3,16 +3,8 @@ const { ACCESS_TOKEN_SECRET }  = require ("../config.js");
 
 const jwt = require('jsonwebtoken');
 
-const users = [
-    {
-      id: '1',
-      name: 'LOUADA',
-      firstname: 'Hamza',
-      email: 'hamza@gmail.com',
-      login: 'hamza',
-      password: 'test'
-    }
-  ];
+const users = require('../utilisateurs.json');
+
 
 function generateAccessToken(user) {
     return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '365d' });

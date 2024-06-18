@@ -26,12 +26,9 @@ export class ProductDetailComponent {
         this.productId = parseInt(params.get('id') ?? '0');
         this.produit$ = this.produitService.getProductById(this.productId);
     });
-
     console.log(this.produit$);
   }
-
   addToCart(produit: Produit) {
     this.store.dispatch(new AjouterProduit(produit));
   }
-
 }
