@@ -6,19 +6,20 @@ import { CommonModule } from '@angular/common';
 import { MoteurRechercheComponent } from '../moteur-recherche/moteur-recherche.component';
 import { HttpParams } from '@angular/common/http';
 import { switchMap, startWith } from 'rxjs/operators';  // Import correct des opérateurs
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-catalogue',
   standalone: true,
-  imports: [CommonModule, MoteurRechercheComponent],
+  imports: [CommonModule, MoteurRechercheComponent, RouterModule],
   templateUrl: './catalogue.component.html',
   styleUrl: './catalogue.component.css'
 })
 export class CatalogueComponent implements OnInit {
   produits!: Observable<Produit[]>;
-  selectedGenre!: string; // Stocker le genre sélectionné
-  searchQuery!: string; // Stocker la recherche de l'utilisateur
+  selectedGenre!: string;
+  searchQuery!: string;
 
   private filterSubject = new Subject<void>();
 

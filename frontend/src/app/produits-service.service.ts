@@ -27,4 +27,9 @@ export class ProduitsServiceService {
     data = 'login=' + email + '&password=' + password;
     return this.http.post<Client>(environment.backendLoginClient, data, httpOptions);
   }
+
+  public getProductById(id: number): Observable<Produit> {
+    return this.http.get<Produit>(environment.backendCatalogue + '/' + id + '/details');
+  }
+
 }
