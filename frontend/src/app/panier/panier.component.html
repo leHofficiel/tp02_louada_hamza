@@ -32,7 +32,7 @@
                     <div class="flex items-center justify-between w-full mb-4">
                         <h5 class="font-manrope font-bold text-2xl leading-9 text-gray-900">{{ produit.produit.title }}
                             </h5>
-                        <button class="rounded-full group flex items-center justify-center focus-within:outline-red-500">
+                        <button class="rounded-full group flex items-center justify-center focus-within:outline-red-500" (click)="removeFromCart(produit.produit.id)">
                             <svg width="34" height="34" viewBox="0 0 34 34" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <circle class="fill-red-50 transition-all duration-500 group-hover:fill-red-400"

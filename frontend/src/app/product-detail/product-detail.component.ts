@@ -28,6 +28,7 @@ export class ProductDetailComponent {
     });
     console.log(this.produit$);
   }
+  
   addToCart(produit: Produit) {
     this.store.dispatch(new AjouterProduit(produit));
   }

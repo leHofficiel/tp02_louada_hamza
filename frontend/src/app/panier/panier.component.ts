@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { PanierState } from './state/panierStates';
 import { Observable } from 'rxjs';
 import { ProduitBase } from './types/produitBase';
-import { ClearPanier } from './actions/panierActions';
+import { ClearPanier, SupprimerProduit } from './actions/panierActions';
 import { CommonModule } from '@angular/common';
 
 
@@ -27,5 +27,9 @@ export class PanierComponent {
     this.store.dispatch(new ClearPanier()).subscribe(() => {
       this.showThankYouMessage = true;
   });
+}
+
+  removeFromCart(productId: number) {
+    this.store.dispatch(new SupprimerProduit(productId));
 }
 }
