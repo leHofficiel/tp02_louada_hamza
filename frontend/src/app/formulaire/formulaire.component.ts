@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule, FormGroup, Validators  } from '@angul
 import { RecapitulatifComponent } from '../recapitulatif/recapitulatif.component';
 import { Client } from '../models/client';
 import { AuthentificationService } from '../services/authentification.service';
+import { CustomSnackbarService } from '../custom-snackbar/custom-snackbar.service';
 
 @Component({
   selector: 'app-formulaire',
@@ -26,7 +27,7 @@ export class FormulaireComponent {
     password : new FormControl('',Validators.required),
   });
   
-  constructor(private authentificationService: AuthentificationService) {}
+  constructor(private authentificationService: AuthentificationService, private customSnackbar: CustomSnackbarService) {}
 
   showRecap = false;
   disabled = false;
@@ -52,16 +53,18 @@ export class FormulaireComponent {
           console.log("Client enregistré");
           this.showRecap = true;
           this.profileForm.disable();
-          // Affichez un message de succès ou redirigez l'utilisateur
+          this.customSnackbar.show('Client enregistré avec succès', 'success');
         },
         error: (error) => {
-          console.error("Erreur lors de l'inscription du client", error);
           if (error.status === 409) {
             // Affichez un message spécifique pour l'email déjà utilisé
             console.log("Email déjà utilisé");
+            this.customSnackbar.show('Email déjà utilisé', 'error');
+
           } else {
             // Affichez un message générique pour d'autres erreurs
             console.log("Une erreur s'est produite lors de l'inscription");
+            this.customSnackbar.show('Une erreur s\'est produite lors de l\'inscription', 'error');
           }
         }
       });

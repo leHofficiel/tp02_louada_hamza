@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
+import { CustomSnackbarService } from '../custom-snackbar/custom-snackbar.service';
 
 @Component({
   selector: 'app-tetiere',
@@ -10,7 +11,7 @@ import { AuthentificationService } from '../services/authentification.service';
   styleUrl: './tetiere.component.css'
 })
 export class TetiereComponent {
-  constructor(private authService: AuthentificationService) {}
+  constructor(private authService: AuthentificationService, private customSnackbar: CustomSnackbarService, private router:Router) {}
 
   isLoggedIn(): boolean {
     return this.authService.isConnected();
@@ -18,6 +19,7 @@ export class TetiereComponent {
 
   logout(): void {
     this.authService.logout();
-    // Ajoutez ici toute autre logique de redirection ou de nettoyage nécessaire après la déconnexion
+    this.customSnackbar.show('Vous avez été déconnecté', 'success');
+    this.router.navigateByUrl('/connexion');
   }
 }

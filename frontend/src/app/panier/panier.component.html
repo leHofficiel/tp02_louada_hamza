@@ -1,24 +1,3 @@
-<!-- <div class="cart-container">
-    <div *ngFor="let produit of produits$ | async" class="cart-item">
-      <div class="cart-item-image" *ngIf="produit.produit.image">
-        <img [src]="produit.produit.image" alt="{{produit.produit.title}}" />
-      </div>
-      <div class="cart-item-details">
-        <h3>{{ produit.produit.title }}</h3>
-        <p><strong>Genre:</strong> {{ produit.produit.genre }}</p>
-        <p><strong>Prix:</strong> {{ produit.produit.prix | currency:'EUR':'symbol' }}</p>
-        <button>Remove</button>
-      </div>
-    </div>
-    <div class="cart-summary">
-      <h2>Total</h2>
-      <p><strong>Prix Total:</strong> {{ prixTotal$ | async | currency:'EUR':'symbol' }}</p>
-      <p><strong>Nombre de Produits:</strong> {{ nombreProduitDansPanier$ | async }}</p>
-      <button (click)="displayThankYouMessage()">Purchase</button>
-      <p *ngIf="showThankYouMessage" class="thank-you-message">Thank you for your purchase</p>
-    </div>
-  </div> -->
-
   <section class="py-24 relative">
     <div  class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
         
@@ -83,7 +62,7 @@
             <div class="max-lg:max-w-lg max-lg:mx-auto">
                 <br>
                 <button
-                    class="rounded-full py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 ">Commander</button>
+                    class="rounded-full py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 " (click)="purchase()" >Commander</button>
             </div>
     </div>
 </section>

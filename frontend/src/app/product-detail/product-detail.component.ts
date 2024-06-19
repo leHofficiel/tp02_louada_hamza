@@ -6,6 +6,7 @@ import { ProduitsServiceService } from '../produits-service.service';
 import { CommonModule } from '@angular/common';
 import { AjouterProduit } from '../panier/actions/panierActions';
 import { Store } from '@ngxs/store';
+import { CustomSnackbarService } from '../custom-snackbar/custom-snackbar.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ProductDetailComponent {
   produit$!: Observable<Produit>;
   productId!: number;
 
-  constructor(private route: ActivatedRoute, private produitService: ProduitsServiceService, private store: Store) { }
+  constructor(private route: ActivatedRoute, private produitService: ProduitsServiceService, private store: Store, private customSnackbar: CustomSnackbarService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -30,5 +31,6 @@ export class ProductDetailComponent {
   
   addToCart(produit: Produit) {
     this.store.dispatch(new AjouterProduit(produit));
+    this.customSnackbar.show('Article ajouté au panier', 'success')
   }
 }
