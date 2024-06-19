@@ -49,7 +49,6 @@ export class CarteFromComponent {
       dateExpiration: this.cardForm.get('dateExpiration')?.value as string
     };
 
-    console.log(formData);
     this.carteService.ajouterCarte(formData);
   }
 

@@ -6,10 +6,11 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi
 import { ApiHttpInterceptor } from './http-interceptor';
 import { NgxsModule } from '@ngxs/store';
 import { PanierState } from './panier/state/panierStates';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes, withComponentInputBinding()), provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: ApiHttpInterceptor, multi: true },
-    importProvidersFrom(NgxsModule.forRoot([PanierState]))]
+    importProvidersFrom(NgxsModule.forRoot([PanierState])), provideAnimationsAsync()]
 };
