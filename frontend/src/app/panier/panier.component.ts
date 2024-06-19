@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { PanierState } from './state/panierStates';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { ProduitBase } from './types/produitBase';
 import { ClearPanier, SupprimerProduit } from './actions/panierActions';
 import { CommonModule } from '@angular/common';
@@ -32,8 +32,8 @@ export class PanierComponent {
   displayThankYouMessage() {
     this.store.dispatch(new ClearPanier()).subscribe(() => {
       this.showThankYouMessage = true;
-  });
-}
+    });
+  }
 
   removeFromCart(productId: number) {
     this.store.dispatch(new SupprimerProduit(productId));
@@ -41,18 +41,17 @@ export class PanierComponent {
   }
 
   purchase() {
-    this.produits$.subscribe(produits => {
+    this.produits$.pipe(
+      take(1)
+    ).subscribe(produits => {
       console.log(produits.length);
       if (produits.length === 0) {
         this.customSnackbar.show('Votre panier est vide', 'error');
-      }
-      else{
+      } else {
         this.store.dispatch(new ClearPanier()).subscribe(() => {
-        this.customSnackbar.show('Merci pour votre achat !', 'success');
-      });
+          this.customSnackbar.show('Merci pour votre achat !', 'success');
+        });
       }
     });
-
-    
   }
 }
