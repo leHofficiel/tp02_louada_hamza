@@ -1,5 +1,5 @@
 export interface Client {
-    civilite: 'male' | 'female';
+    civilite: string;
     nom: string;
     prenom: string;
     email: string;
@@ -10,5 +10,4 @@ export interface Client {
     pays: string;
     login: string;
     password: string;
-    confirmation: string;
   }

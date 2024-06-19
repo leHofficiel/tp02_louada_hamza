@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProduitsServiceService } from '../produits-service.service';
+import { AuthentificationService } from '../services/authentification.service';
 
 @Component({
   selector: 'app-tetiere',
@@ -10,6 +10,14 @@ import { ProduitsServiceService } from '../produits-service.service';
   styleUrl: './tetiere.component.css'
 })
 export class TetiereComponent {
-  constructor(private apiService: ProduitsServiceService) {
+  constructor(private authService: AuthentificationService) {}
+
+  isLoggedIn(): boolean {
+    return this.authService.isConnected();
+  }
+
+  logout(): void {
+    this.authService.logout();
+    // Ajoutez ici toute autre logique de redirection ou de nettoyage nécessaire après la déconnexion
   }
 }

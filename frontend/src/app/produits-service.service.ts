@@ -16,18 +16,7 @@ export class ProduitsServiceService {
   public getCatalogue(params: HttpParams) : Observable<Produit[]> {
     return this.http.get<Produit[]>(environment.backendCatalogue, {params});
   }
-
-  public loginClient(email: string, password: string): Observable<Client> {
-    let data: String;
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    };  
-    data = 'login=' + email + '&password=' + password;
-    return this.http.post<Client>(environment.backendLoginClient, data, httpOptions);
-  }
-
+  
   public getProductById(id: number): Observable<Produit> {
     return this.http.get<Produit>(environment.backendCatalogue + '/' + id + '/details');
   }
