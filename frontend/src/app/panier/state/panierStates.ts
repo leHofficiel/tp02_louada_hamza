@@ -37,10 +37,10 @@ export class PanierState {
     @Action(AjouterProduit)
     ajouterProduit(ctx: StateContext<PanierStateModel>, action: AjouterProduit) {
         const state = ctx.getState();
-        console.log(action.produit);
         const baseProduct: ProduitBase = {
             produit: action.produit,
-            quantite: 1
+            quantite: 1,
+            id: state.produits.length + 1
         };
 
         ctx.patchState({
@@ -51,9 +51,9 @@ export class PanierState {
     @Action(SupprimerProduit)
     supprimerProduit(ctx: StateContext<PanierStateModel>, action: SupprimerProduit) {
         const state = ctx.getState();
-        const productToRemove = state.produits.find(produit => produit.produit.id === action.id);
+        const productToRemove = state.produits.find(product => product.id === action.id)?.produit;
         ctx.patchState({
-          produits: state.produits.filter(produit => produit.produit.id !== action.id)
+          produits: state.produits.filter(product => product.id !== action.id)
         })
     }
 

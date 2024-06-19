@@ -21,6 +21,11 @@ export class PanierComponent {
 
   constructor(private store: Store) {}
 
+  ngOnInit() {
+    //Affciher le panier
+    (this.produits$.subscribe(produits => console.log(produits)));
+  }
+
   showThankYouMessage = false;
 
   displayThankYouMessage() {
