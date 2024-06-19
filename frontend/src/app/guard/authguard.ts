@@ -1,30 +1,15 @@
 import { inject } from "@angular/core";
 import { Router } from "@angular/router";
+import { AuthentificationService } from "../services/authentification.service";
 
 
-// export const AuthGuard = () => {
-//   const router = inject(Router);
-//   const authService = inject(AuthenticationService);
-//   const token = authService.getToken()
+export const AuthGuard = () => {
+  const router = inject(Router);
+  const authService = inject(AuthentificationService);
 
-//   if (!token || !authService.isTokenValid(token)) {
-//     router.navigateByUrl('/error');
-//     return false;
-//   }
-//   return true;
-// };
-
-// export const AuthGuardAdministration = () => {
-//   const router = inject(Router);
-//   const authService = inject(AuthenticationService);
-//   const token = authService.getToken()
-
-//   if (token && authService.isTokenValid(token)) {
-//     const decodedToken : any = jwtDecode(token);
-//     if (decodedToken.Role == 2) {
-//       return true;
-//     }
-//   }
-//   router.navigateByUrl('/');
-//   return false;
-// }
+  if (!authService.isConnected()) {
+    router.navigateByUrl('/unauthorized');
+    return false;
+  }
+  return true;
+};
